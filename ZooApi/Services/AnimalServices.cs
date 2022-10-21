@@ -42,12 +42,20 @@ namespace ZooApi.Services
             return animalById;
         }
 
-        public IList<Animal> Delete(int animalId)
+        public IList<Animal>? Delete(int animalId)
         {
-            throw new NotImplementedException();
+            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalById = animalReaded.FirstOrDefault(animal => animal.IdAnimal == animalId);
+            if (animalById != null)
+            {
+                animalReaded.Remove(animalById);
+                _animalFile.WriteAndSerialize(_animalPath, animalReaded);
+                return animalReaded;
+            }
+            return null;
         }
 
-       
+
         public Animal Put(int animalId)
         {
             throw new NotImplementedException();

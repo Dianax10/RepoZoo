@@ -42,15 +42,18 @@ namespace ZooApi.Controllers
         }
 
         // PUT api/<AnimalController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{animalid}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<AnimalController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{animalId}")]
+        public IActionResult Delete(int animalId)
         {
+            var animalToDelete = _animalService.Delete(animalId);
+            if (animalToDelete==null)
+                return NoContent();
+            return Ok();
         }
     }
 }

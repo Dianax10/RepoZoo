@@ -56,17 +56,37 @@ namespace ZooApi.Services
         }
 
 
-        public Animal Put(int animalId)
+        public Animal Put(SimpleAnimal animal,int animalId)
         {
-            throw new NotImplementedException();
+
+            var animalMap = new Animal();
+            animalMap.IdAnimal = IncrementId();
+            animalMap.Specie = animal.Specie;
+            animalMap.Peso = animal.Peso;
+            animalMap.Altezza = animal.Altezza;
+
+            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalById = animalReaded.FirstOrDefault(animal => animal.IdAnimal == animalId);
+
+            if (animalById == null)
+            {
+                animalReaded.Add(animalMap);
+                _animalFile.WriteAndSerialize(_animalPath, animalReaded);
+                return animalMap;
+            }
+            animalReaded.Remove(animalById);
+            var animalFinale = new Animal();
+            animalFinale.IdAnimal = animalById.IdAnimal;
+            animalFinale.Specie = animal.Specie;
+            animalFinale.Peso = animal.Peso;
+            animalFinale.Altezza = animal.Altezza;
+            animalReaded.Add(animalFinale);
+
+            return animalFinale;
+
         }
 
-        //public AnimalServices(IList<Animal> animalList)
-        //{
-        //    _animalList = animalList;
-        //}
-
-
+       
 
     }
 }

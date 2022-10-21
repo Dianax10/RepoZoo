@@ -41,10 +41,13 @@ namespace ZooApi.Controllers
 
         }
 
-        // PUT api/<AnimalController>/5
-        [HttpPut("{animalid}")]
-        public void Put(int id, [FromBody] string value)
+        
+        [HttpPut("{animalId}")]
+        public IActionResult Put(int animalId, [FromBody] SimpleAnimal animal)
         {
+            var animalUpdate = _animalService.Put(animal, animalId);
+            return Ok(animalUpdate);
+
         }
 
         [HttpDelete("{animalId}")]

@@ -10,10 +10,11 @@ namespace ZooApi.Services
         private AnimalFiles _animalFile = new AnimalFiles();
         private int IncrementId()
         {
-            if (_animalList.Count == 0)
+            var animal = _animalFile.ReadAndDeserialize(_animalPath);
+            if (animal.Count == 0)
                 return 1;
 
-            return _animalList.Max(animal => animal.IdAnimal) + 1;
+            return animal.Max(animal => animal.IdAnimal) + 1;
         }
         public Animal Create(SimpleAnimal animal)
         {
@@ -24,19 +25,17 @@ namespace ZooApi.Services
             animalMap.Peso = animal.Peso;
             animalMap.Altezza = animal.Altezza;
 
-            var animals= _animalFile.ReadAndDeserialize(_animalPath);
+            var animals = _animalFile.ReadAndDeserialize(_animalPath);
             animals.Add(animalMap);
             _animalFile.WriteAndSerialize(_animalPath, animals);
             return animalMap;
 
         }
-
-        public IList<Animal> Delete(int animalId)
+        public IList<Animal> GetAllAnimal()
         {
-            throw new NotImplementedException();
+            return _animalFile.ReadAndDeserialize(_animalPath);
         }
-
-        public IList<Animal> GetAll()
+        public IList<Animal> Delete(int animalId)
         {
             throw new NotImplementedException();
         }

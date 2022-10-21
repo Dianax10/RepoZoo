@@ -1,1 +1,1 @@
-[{"IdAnimal":1,"Specie":"string","Peso":0,"Altezza":0,"Area":null},{"IdAnimal":1,"Specie":"string","Peso":0,"Altezza":0,"Area":null},{"IdAnimal":1,"Specie":"string","Peso":0,"Altezza":0,"Area":null}]
+[{"IdAnimal":1,"Specie":"string","Peso":0,"Altezza":0,"Area":null},{"IdAnimal":1,"Specie":"string","Peso":0,"Altezza":0,"Area":null},{"IdAnimal":1,"Specie":"string","Peso":0,"Altezza":0,"Area":null},{"IdAnimal":1,"Specie":"string","Peso":0,"Altezza":0,"Area":null},{"IdAnimal":2,"Specie":"string","Peso":0,"Altezza":0,"Area":null}]

@@ -11,11 +11,15 @@ namespace ZooApi.Controllers
     public class AnimalController : ControllerBase
     {
         private IAnimalService _animalService=new AnimalServices();
-        // GET: api/<AnimalController>
+     
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var allAnimal = _animalService.GetAllAnimal();
+            if (allAnimal == null)
+                return NotFound("Animale non trovato");
+
+            return Ok(allAnimal);
         }
 
         // GET api/<AnimalController>/5

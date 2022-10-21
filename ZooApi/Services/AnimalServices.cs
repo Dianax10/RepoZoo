@@ -35,16 +35,19 @@ namespace ZooApi.Services
         {
             return _animalFile.ReadAndDeserialize(_animalPath);
         }
+        public Animal? GetDetail(int animalId)
+        {
+            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalById = animalReaded.FirstOrDefault(animal => animal.IdAnimal == animalId);
+            return animalById;
+        }
+
         public IList<Animal> Delete(int animalId)
         {
             throw new NotImplementedException();
         }
 
-        public Animal GetDetail(int animalId)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public Animal Put(int animalId)
         {
             throw new NotImplementedException();

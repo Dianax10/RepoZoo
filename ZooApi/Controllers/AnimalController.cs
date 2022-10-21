@@ -23,10 +23,13 @@ namespace ZooApi.Controllers
         }
 
         // GET api/<AnimalController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{animalId}")]
+        public IActionResult GetById(int animalId)
         {
-            return "value";
+           var animal=_animalService.GetDetail(animalId);
+            if (animal == null)
+                return NoContent();
+            return Ok(animal);
         }
 
       

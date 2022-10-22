@@ -6,7 +6,7 @@ namespace ZooApi.Services
     public class AnimalServices : IAnimalService
     {
         private static readonly string _animalPath = "Animals.txt";
-        private IList<Animal> _animalList = new List<Animal>();
+      //  private IList<Animal> _animalList = new List<Animal>();
         private AnimalFiles _animalFile = new AnimalFiles();
 
         public Animal Mapping(SimpleAnimal animal)

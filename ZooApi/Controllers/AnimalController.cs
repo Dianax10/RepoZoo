@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using ZooApi.Models;
 using ZooApi.Services;
 
@@ -50,6 +51,22 @@ namespace ZooApi.Controllers
             if (animalToDelete == null)
                 return NoContent();
             return Ok();
+        }
+        [HttpGet("{specie}/getSpecie")]
+        public IActionResult GetBySpecie(string specie)
+        {
+            var animal = _animalService.GetAnimaliFromSpecie(specie);
+            if (animal == null)
+                return NoContent();
+            return Ok(animal);
+        }
+        [HttpGet("/OrderByPeso")]
+        public IActionResult GetByPeso()
+        {
+            var animal = _animalService.GetOrderByPeso();
+            if (animal == null)
+                return NoContent();
+            return Ok(animal);
         }
     }
 }

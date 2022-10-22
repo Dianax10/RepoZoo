@@ -10,7 +10,8 @@ namespace ZooApi.Services
         public Animal? GetDetail(int animalId);
         public Animal Put(SimpleAnimal animal,int animalId);
         public IList<Animal> Delete(int animalId);
-
+        public IList<Animal> GetAnimaliFromSpecie(string specie);
+        public IList<Animal> GetOrderByPeso();
 
     }
 }

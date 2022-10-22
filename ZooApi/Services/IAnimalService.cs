@@ -7,7 +7,7 @@ namespace ZooApi.Services
 
         public Animal Create(SimpleAnimal animal);
         public IList<Animal> GetAllAnimal();
-        public Animal GetDetail(int animalId);
+        public Animal? GetDetail(int animalId);
         public Animal Put(SimpleAnimal animal,int animalId);
         public IList<Animal> Delete(int animalId);
 

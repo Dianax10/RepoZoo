@@ -34,16 +34,13 @@ namespace ZooApi.Controllers
         {
             var animalAdd = _animalService.Create(postAnimal);
             return Created("", animalAdd);//createdat
-
         }
-
 
         [HttpPut("{animalId}")]
         public IActionResult Put(int animalId, [FromBody] SimpleAnimal animal)
         {
             var animalUpdate = _animalService.Put(animal, animalId);
             return Ok(animalUpdate);
-
         }
 
         [HttpDelete("{animalId}")]

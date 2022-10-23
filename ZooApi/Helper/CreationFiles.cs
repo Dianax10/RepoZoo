@@ -1,6 +1,6 @@
 ﻿namespace ZooApi.Helper
 {
-    public static class FileHelper
+    public static class CreationFiles
     {
         public static void CreateIfNotExist(string path)
         {

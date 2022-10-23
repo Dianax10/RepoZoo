@@ -7,7 +7,7 @@ namespace ZooApi.Services
     {
         private static readonly string _animalPath = "Animals.txt";
       //  private IList<Animal> _animalList = new List<Animal>();
-        private AnimalFiles _animalFile = new AnimalFiles();
+        //private FileHelper _animalFile = new FileHelper();
 
         public Animal Mapping(SimpleAnimal animal)
         {
@@ -18,9 +18,9 @@ namespace ZooApi.Services
             animalMap.Altezza = animal.Altezza;
             return animalMap;
         }
-        private int IncrementId()
+        private  int IncrementId()
         {
-            var animal = _animalFile.ReadAndDeserialize(_animalPath);
+            var animal = FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();
             if (animal.Count == 0)
                 return 1;
 
@@ -35,31 +35,33 @@ namespace ZooApi.Services
             //animalMap.Peso = animal.Peso;
             //animalMap.Altezza = animal.Altezza;
             var animalMap= Mapping(animal);
-            var animals = _animalFile.ReadAndDeserialize(_animalPath);
+            var animals = FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();
             animals.Add(animalMap);
-            _animalFile.WriteAndSerialize(_animalPath, animals);
+            FileHelper.WriteAndSerialize(_animalPath, animals);
             return animalMap;
 
         }
-        public IList<Animal> GetAllAnimal() => _animalFile.ReadAndDeserialize(_animalPath);
-        //{
-        //    return _animalFile.ReadAndDeserialize(_animalPath);
-        //}
+        public IList<Animal> GetAllAnimal() /*=> FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();*/
+        {
+            var animalReaded = FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();
+            var animaliOrdinati= animalReaded.OrderBy(animalReaded => animalReaded.IdAnimal).ToList();
+            return animaliOrdinati;
+        }
         public Animal? GetDetail(int animalId)
         {
-            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalReaded = FileHelper.ReadAndDeserialize<Animal>(_animalPath);
             var animalById = animalReaded.FirstOrDefault(animal => animal.IdAnimal == animalId);
             return animalById;
         }
 
         public IList<Animal>? Delete(int animalId)
         {
-            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalReaded = FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();
             var animalById = animalReaded.FirstOrDefault(animal => animal.IdAnimal == animalId);
             if (animalById != null)
             {
                 animalReaded.Remove(animalById);
-                _animalFile.WriteAndSerialize(_animalPath, animalReaded);
+                FileHelper.WriteAndSerialize(_animalPath, animalReaded);
                 return animalReaded;
             }
             return null;
@@ -70,13 +72,13 @@ namespace ZooApi.Services
         {
 
             var animalMap = Mapping(animal);
-            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalReaded = FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();
             var animalById = animalReaded.FirstOrDefault(animal => animal.IdAnimal == animalId);
 
             if (animalById == null)
             {
                 animalReaded.Add(animalMap);
-                _animalFile.WriteAndSerialize(_animalPath, animalReaded);
+                FileHelper.WriteAndSerialize(_animalPath, animalReaded);
                 return animalMap;
             }
 
@@ -90,21 +92,21 @@ namespace ZooApi.Services
 
             animalReaded.Add(animalFinale);
 
-            _animalFile.WriteAndSerialize(_animalPath, animalReaded);
+            FileHelper.WriteAndSerialize(_animalPath, animalReaded);
             return animalFinale;
 
         }
 
         public IList<Animal> GetAnimaliFromSpecie(string specie)
         {
-            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalReaded = FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();
             var animalBySpecie= animalReaded.Where(animal=> animal.Specie == specie).ToList();
             return animalBySpecie;
         }
 
         public IList<Animal> GetOrderByPeso()
         {
-            var animalReaded = _animalFile.ReadAndDeserialize(_animalPath);
+            var animalReaded = FileHelper.ReadAndDeserialize<Animal>(_animalPath).ToList();
             var animalByPeso= animalReaded.OrderBy(animal=>animal.Peso).ToList();
             return animalByPeso;
         }
